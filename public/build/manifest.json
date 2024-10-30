@@ -73,5 +73,14 @@
     "file": "assets/tippy-DF_zv38w.css",
     "src": "resources/css/tippy.css",
     "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-DViMEl5M.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "css": [
+      "assets/app-BsM4JrO0.css"
+    ]
   }
 }
