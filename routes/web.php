@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JobPortal\JobPortalApplicationController;
 use App\Http\Controllers\JobPortal\JobPortalController;
 use App\Http\Controllers\JobPosting\JobPostingController;
 use App\Http\Controllers\ProfileController;
@@ -24,7 +25,15 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'isAdmin'])->name('dashboard');
+
+
+ //Job Portal
+ Route::get('job-portal', [JobPortalController::class, 'index']);
+ Route::get('get-jobs/{id}', [JobPortalController::class,'getJobs']);
+
+ //Application
+ Route::get('apply/form/resume/{id}', [JobPortalApplicationController::class, 'resumeForm']);
 
 
 Route::middleware('auth')->group(function () {
@@ -33,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'verified'])->group(function(){
+Route::middleware(['auth', 'isAdmin'])->group(function(){
     //PLACE YOUR ROUTES HERE FOR VERIFIED USER
 
     //Company
@@ -53,9 +62,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::delete('delete-skills/{id}', [JobPostingController::class, 'destroySkills']);
     Route::delete('delete-qualifications/{id}', [JobPostingController::class, 'destroyQualifications']);
 
-    //Job Portal
-    Route::get('job-portal', [JobPortalController::class, 'index']);
-    Route::get('get-jobs/{id}', [JobPortalController::class,'getJobs']);
+   
 
 
     //APPS

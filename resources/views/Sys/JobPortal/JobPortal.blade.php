@@ -27,16 +27,7 @@
         }
     }
 </style>
-<!-- Header -->
-<header class="border-b bg-white">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-        <h1 class="text-2xl font-bold text-blue-600">ParadiseHotel</h1>
-        <div class="space-x-4">
-            <button class="px-4 py-2 text-gray-600 hover:text-gray-900">Sign In</button>
-            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Post a Job</button>
-        </div>
-    </div>
-</header>
+
 
 <main class="max-w-6xl mx-auto px-4 py-8">
     <!-- Search Section -->
@@ -117,9 +108,9 @@
                         <p class="">Paradise Hotel</p>
                     </div>
                     <div class="mt-5 flex gap-4">
-                        <button class="bg-pink-600 text-white py-2 px-4 rounded-lg font-bold">
-                            Quick apply
-                        </button>
+                        <a id="apply-link" href="{{ Auth::check() ? url('apply/form/resume/') : url('login') }}" class="bg-pink-600 text-white py-2 px-4 rounded-lg font-bold">
+                            Apply Now
+                        </a>
                         <button class="bg-blue-100 text-blue-900 py-2 px-4 rounded-lg font-bold">
                             Save
                         </button>
@@ -158,7 +149,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
                             </svg>
 
-                            <span id="salary_from"></span> - <span id="salary_to"></span>
+                            <span>&#8369; <span id="salary_from"></span></span> - <span>&#8369; <span id="salary_to"></span></span>
                         </span>
                         <span class="flex items-center gap-1">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -167,11 +158,11 @@
                             Posted <span id="created_at"></span>
                         </span>
                     </div>
-                    <div class="mt-5 flex gap-5">
-                        <button class="bg-pink-600 text-white py-3 px-6 rounded-lg font-bold">
-                            Quick apply
-                        </button>
-                        <button class="bg-blue-100 text-blue-900 py-3 px-6 rounded-lg font-bold">
+                    <div class="mt-5 flex gap-4">
+                        <a id="apply-link-2" href="{{ Auth::check() ? url('apply/form/resume') : url('login') }}" class="bg-pink-600 text-white py-2 px-4 rounded-lg font-bold">
+                            Apply Now
+                        </a>
+                        <button class="bg-blue-100 text-blue-900 py-2 px-4 rounded-lg font-bold">
                             Save
                         </button>
                     </div>
@@ -184,7 +175,7 @@
                         <div>
                             <h1 class="text-xl font-semibold mt-10">Benefits</h1>
                             <p id="benefits">
-                                
+
                             </p>
                         </div>
                         <div>
@@ -253,6 +244,8 @@
         const content = document.querySelector('.content');
         const loadingIndicator = document.querySelector('.loading');
         const header = document.querySelector('.header');
+        const applyLink = document.getElementById('apply-link');
+        const applyLink2 = document.getElementById('apply-link-2');
 
         selectJobMessage.classList.remove('hidden');
         header.classList.remove('hidden');
@@ -271,7 +264,8 @@
                 header.classList.add('hidden');
                 loadingIndicator.classList.remove('hidden');
                 content.classList.add('hidden', 'opacity-0', 'translate-y-[-20px]');
-
+                applyLink.href = `apply/form/resume/${jobId}`;
+                applyLink2.href = `apply/form/resume/${jobId}`;
                 try {
                     const response = await fetch(`/get-jobs/${jobId}`);
                     if (!response.ok) throw new Error('Network response was not ok');

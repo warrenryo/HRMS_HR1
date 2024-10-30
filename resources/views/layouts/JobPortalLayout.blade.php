@@ -21,6 +21,16 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-white">
+  <!-- Header -->
+<header class="border-b bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <h1 class="text-2xl font-bold text-blue-600">ParadiseHotel</h1>
+        <div class="space-x-4">
+            <button class="px-4 py-2 text-gray-600 hover:text-gray-900">Sign In</button>
+            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Post a Job</button>
+        </div>
+    </div>
+</header>
   @yield('content')
 </body>
 </html>

@@ -9,18 +9,27 @@
             <p>It is easy to setup with great customer experience. Start your 7-day free trial</p>
         </div>
         <div class="w-full lg:w-1/2 relative flex justify-center items-center">
-            <div class="max-w-[480px] p-5 md:p-10">
+            <div class="max-w-[600px] p-5 md:p-10">
                 <h2 class="font-bold text-3xl mb-3">Sign Up</h2>
                 <p class="mb-7">Enter your email and password to register</p>
                 <form method="POST" class="space-y-5" action="{{ route('register') }}">
                     @csrf
 
-                    <!-- Name -->
-                    <div>
-                        <x-input-label for="name" :value="__('Name')" />
-                        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
-                            required autofocus autocomplete="name" />
-                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Name -->
+                        <div>
+                            <x-input-label for="name" :value="__('Name')" />
+                            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
+                                required autofocus autocomplete="name" />
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                        </div>
+                        <!-- Last Name -->
+                        <div>
+                            <x-input-label for="lname" :value="__('Last Name')" />
+                            <x-text-input id="lname" class="block mt-1 w-full" type="text" name="lastname" :value="old('lastname')"
+                                required autofocus autocomplete="lastname" />
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                        </div>
                     </div>
 
                     <!-- Email Address -->
@@ -30,6 +39,38 @@
                             :value="old('email')" required autocomplete="username" />
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
+
+                    <div>
+                        <x-input-label for="add" :value="__('Address')" />
+                        <x-text-input id="add" class="block mt-1 w-full" type="text" name="address" :value="old(key: 'address')"
+                            required autofocus autocomplete="address" />
+                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                    </div>
+                    <!-- Address -->
+                    <div>
+                        <x-input-label for="city" :value="__('City')" />
+                        <x-text-input id="city" class="block mt-1 w-full" type="text" name="city" :value="old(key: 'city')"
+                            required autofocus autocomplete="city" />
+                        <x-input-error :messages="$errors->get('city')" class="mt-2" />
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Mobile NUmber -->
+                        <div>
+                            <x-input-label for="number" :value="__('Mobile Number')" />
+                            <x-text-input id="number" class="block mt-1 w-full" type="number" name="number" :value="old('number')"
+                                required autofocus autocomplete="number" />
+                            <x-input-error :messages="$errors->get('number')" class="mt-2" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="zip" :value="__('Zip Code')" />
+                            <x-text-input id="zip" class="block mt-1 w-full" type="number" name="zip_code" :value="old(key: 'zip_code')"
+                                required autofocus autocomplete="zip_code" />
+                            <x-input-error :messages="$errors->get('zip_code')" class="mt-2" />
+                        </div>
+                    </div>
+
 
                     <!-- Password -->
                     <div class="mt-4">
