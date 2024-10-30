@@ -19,9 +19,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,7 +29,7 @@ Route::get('/dashboard', function () {
 
 
  //Job Portal
- Route::get('job-portal', [JobPortalController::class, 'index']);
+ Route::get('/', [JobPortalController::class, 'index']);
  Route::get('get-jobs/{id}', [JobPortalController::class,'getJobs']);
 
  //Application

@@ -1,5 +1,6 @@
 /.phpunit.cache
 .phpunit.result.cache
+.env
 Homestead.json
 Homestead.yaml
 auth.json
