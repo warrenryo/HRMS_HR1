@@ -398,7 +398,7 @@
         </div>
     </div>
 </header>
-<script>
+<!-- <script>
     documventListener("alpine:init", () => {
         Alpine.data("header", () => ({
             init() {
@@ -463,4 +463,4 @@
     },
         }));
     });
-</script>
+</script> -->

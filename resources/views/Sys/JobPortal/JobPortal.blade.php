@@ -267,7 +267,7 @@
                 applyLink.href = `apply/form/resume/${jobId}`;
                 applyLink2.href = `apply/form/resume/${jobId}`;
                 try {
-                    const response = await fetch(`https://hr1.paradisehoteltomasmorato.com/get-jobs/${jobId}`);
+                    const response = await fetch(`/get-jobs/${jobId}`);
                     if (!response.ok) throw new Error('Network response was not ok');
                     const data = await response.json();
 

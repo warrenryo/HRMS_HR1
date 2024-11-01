@@ -39,7 +39,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$job->employment_type}}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$job->location}}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$job->schedule}}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200 text-red-600">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm  dark:text-neutral-200 text-red-600">
                                             &#8369; {{ number_format($job->salary_from, 2) }} - &#8369; {{ number_format($job->salary_to, 2) }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{ \Carbon\Carbon::parse($job->close_date)->format('d-m-Y') }}</td>
@@ -81,12 +81,17 @@
                                             <button data-hs-overlay="#edit-job-{{$job->id}}" class="btn btn-success py-2 px-3">
                                                 <i class="fa-solid fa-pen"></i>
                                             </button>
+                                            <button data-hs-overlay="#add-question-{{$job->id}}" class="btn btn-secondary py-2 px-3">
+                                                <i class="fa-solid fa-question"></i>
+                                            </button>
                                             <button data-hs-overlay="#delete-job-{{$job->id}}" class="btn btn-danger py-2 px-3">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
+                                            @include('AdminComponents.Modals.JobPosting.AddQuestions')
                                             @include('AdminComponents.Modals.JobPosting.DeleteJobPosting')
                                             @include('AdminComponents.Modals.JobPosting.EditJobPosting')
                                             @include('AdminComponents.Modals.JobPosting.ViewDetails')
+                              
                                         </td>
                                     </tr>
                                     @endforeach

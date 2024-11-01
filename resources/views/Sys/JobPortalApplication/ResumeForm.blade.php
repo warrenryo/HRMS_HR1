@@ -7,14 +7,7 @@
         <!-- Hire Us -->
         <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
             <div class="max-w-xl mx-auto">
-                <div class="text-center">
-                    <h1 class="text-3xl font-bold text-gray-800 sm:text-4xl dark:text-white">
-                        Your Information
-                    </h1>
-                    <p class="mt-1 text-gray-600 dark:text-neutral-400">
-                        Tell us your information in order to let us know you
-                    </p>
-                </div>
+
 
                 <div class="mt-12">
                     <!-- Form -->
@@ -31,9 +24,7 @@
                                                 <polyline points="20 6 9 17 4 12"></polyline>
                                             </svg>
                                         </span>
-                                        <span class="ms-2 text-sm font-medium text-gray-800 dark:text-neutral-200">
-                                            Step
-                                        </span>
+
                                     </span>
                                     <div class="w-full h-px flex-1 bg-gray-200 group-last:hidden hs-stepper-success:bg-blue-600 hs-stepper-completed:bg-teal-600 dark:bg-neutral-700 dark:hs-stepper-success:bg-blue-600 dark:hs-stepper-completed:bg-teal-600"></div>
                                 </li>
@@ -46,9 +37,7 @@
                                                 <polyline points="20 6 9 17 4 12"></polyline>
                                             </svg>
                                         </span>
-                                        <span class="ms-2 text-sm font-medium text-gray-800 dark:text-neutral-200">
-                                            Step
-                                        </span>
+
                                     </span>
                                     <div class="w-full h-px flex-1 bg-gray-200 group-last:hidden hs-stepper-success:bg-blue-600 hs-stepper-completed:bg-teal-600 dark:bg-neutral-700 dark:hs-stepper-success:bg-blue-600 dark:hs-stepper-completed:bg-teal-600"></div>
                                 </li>
@@ -61,9 +50,7 @@
                                                 <polyline points="20 6 9 17 4 12"></polyline>
                                             </svg>
                                         </span>
-                                        <span class="ms-2 text-sm font-medium text-gray-800 dark:text-neutral-200">
-                                            Step
-                                        </span>
+
                                     </span>
                                     <div class="w-full h-px flex-1 bg-gray-200 group-last:hidden hs-stepper-success:bg-blue-600 hs-stepper-completed:bg-teal-600 dark:bg-neutral-700 dark:hs-stepper-success:bg-blue-600 dark:hs-stepper-completed:bg-teal-600"></div>
                                 </li>
@@ -75,6 +62,14 @@
                             <div class=" ">
                                 <!-- First Content -->
                                 <div data-hs-stepper-content-item='{"index": 1}' class="py-10">
+                                    <div class="text-center pb-16">
+                                        <h1 class="text-3xl font-bold text-gray-800 sm:text-4xl dark:text-white">
+                                            Your Information
+                                        </h1>
+                                        <p class="mt-1 text-gray-600 dark:text-neutral-400">
+                                            Tell us your information in order to let us know you
+                                        </p>
+                                    </div>
                                     <div class="grid gap-4 lg:gap-6">
                                         <!-- Grid -->
                                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
@@ -99,11 +94,44 @@
                                 <!-- End First Content -->
 
                                 <!-- First Content -->
-                                <div data-hs-stepper-content-item='{"index": 2}' style="display: none;">
-                                    <div class="p-4 h-48 bg-gray-50 flex justify-center items-center border border-dashed border-gray-200 rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
-                                        <h3 class="text-gray-500 dark:text-neutral-500">
-                                            Second content
-                                        </h3>
+                                <div data-hs-stepper-content-item='{"index": 2}' style="display: none;" class="py-10">
+                                    <h1 class="text-3xl font-bold text-gray-800 sm:text-3xl dark:text-white">
+                                        Enter a job that shows relevant experience
+                                    </h1>
+                                    <p class="mt-4 text-gray-600 dark:text-neutral-400">
+                                        TWe share one job title with the employer to introduce you as a candidate.
+                                    </p>
+                                    <h1 class="font-bold pt-4 pb-2">Relevant experience <span class="font-light text-sm">(optional)</span></h1>
+                                    <div class="border rounded-lg p-6">
+                                        <div>
+                                            <label for="jobTitle" class="block mb-2 text-sm text-gray-700 font-bold dark:text-white">Job Title</label>
+                                            <input type="text" name="lastname" id="jobTitle" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                                        </div>
+                                        <div class="mt-4">
+                                            <label for="company" class="block mb-2 text-sm text-gray-700 font-bold dark:text-white">Company</label>
+                                            <input type="text" name="lastname" id="company" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2 mt-4">
+                                        @if(!empty($job->questions))
+                                            @foreach($job->questions as $question)
+                                            <label for="question-{{$question->id}}" class="block mb-2 text-sm text-gray-700 font-bold dark:text-white" style="margin-top: 20px;">{{ $question->questions }}</label>
+                                                @if($question->q_type == 'input')
+                                                <input type="text" name="answers[{{$question->id}}]" id="question-{{$question->id}}" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                                                @elseif($question->q_type == 'checkbox')
+                                                    @foreach($question->employerCheckboxOptions as $option)
+                                                    <div class="flex">
+                                                        <input type="checkbox" name="checkbox_answers[{{$question->id}}][]" value="{{ $option->id }}" id="checkbox-{{$option->id}}" class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800">
+                                                        <label for="checkbox-{{$option->id}}" class="text-sm text-gray-500 ms-3 dark:text-neutral-400">{{ $option->options }}</label>
+                                                    </div>
+                                                    @endforeach
+                                                    @elseif($question->q_type == 'textarea')
+                                                    <div class="max-w-sm space-y-3">
+                                                        <textarea class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" rows="3" placeholder="This is a textarea placeholder"></textarea>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     </div>
                                 </div>
                                 <!-- End First Content -->
@@ -161,7 +189,7 @@
         </div>
         <!-- End Hire Us -->
     </div>
-    <div class=" max-h-[80vh] overflow-y-auto ">
+    <div class=" max-h-[80vh] overflow-y-auto sticky top-20">
         <div class="max-w-[700px] py-10 px-10 border border-gray-300 rounded-lg">
             <div class="mb-6">
                 <h1 class="text-3xl font-semibold">{{$job->title}}</h1>

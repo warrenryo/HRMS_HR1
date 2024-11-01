@@ -4,6 +4,7 @@ namespace App\Models\JobPosting;
 
 use App\Models\JobPosting\JobSkills;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\JobPosting\EmployerQuestions;
 use App\Models\JobPosting\JobQualifications;
 use App\Models\JobPosting\JobEmploymentSetup;
 use App\Models\JobPosting\JobResponsibilities;
@@ -49,5 +50,10 @@ class JobPosting extends Model
     public function jobSetup()
     {
         return $this->hasMany(JobEmploymentSetup::class,'job_posting_id','id');
+    }
+    
+    public function questions()
+    {
+        return $this->hasMany(EmployerQuestions::class, 'job_posting_id', 'id');
     }
 }

@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\JobPosting;
 
+use Log;
 use Illuminate\Http\Request;
 use App\Enums\EmploymentType;
 use App\Enums\EmploymentSetup;
 use App\Http\Controllers\Controller;
 use App\Models\JobPosting\JobSkills;
 use App\Models\JobPosting\JobPosting;
-use App\Models\JobPosting\JobQualifications;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\JobPosting\EmployerQuestions;
+use App\Models\JobPosting\JobQualifications;
 use App\Models\JobPosting\JobResponsibilities;
+use App\Models\JobPosting\EmployerCheckboxOptions;
 
 class JobPostingController extends Controller
 {
@@ -211,6 +214,52 @@ class JobPostingController extends Controller
             Alert::success('Job ' . $job->title . ' has been deleted');
 
             return redirect()->back();
+        }
+    }
+
+    public function addQuestionSet(Request $request, $jobPosting_id)
+    {
+        try {
+            // Log the incoming request data for debugging
+            $request->validate([
+                'q_type' => 'required|array',
+                'questions' => 'required|array',
+                'checkbox_answer' => 'array',
+            ]);
+
+            foreach ($request->questions as $index => $questionText) {
+                // Create the question first
+                $question = EmployerQuestions::create([
+                    'questions' => $questionText,
+                    'q_type' => $request->q_type[$index],
+                    'job_posting_id' => $jobPosting_id,
+                ]);
+
+                // Ensure checkbox_answer is an array and check if it has options for this question
+                if (!empty($request->checkbox_answer) ) {
+                    foreach ($request->checkbox_answer as $option) {
+                        // Only insert if the option is not null or empty
+                        if (!empty($option)) {
+                            $question->employerCheckboxOptions()->create([
+                                'options' => $option
+                            ]);
+                        }
+                    }
+                }
+            }
+            Alert::success('Questions has been added');
+            return redirect()->back()->with('success', 'Questions added successfully.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $e->validator->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An unexpected error occurred.',
+                'details' => $e->getMessage(),
+            ], 500);
         }
     }
 }

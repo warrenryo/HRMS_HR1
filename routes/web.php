@@ -61,6 +61,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
     Route::delete('delete-responsibility/{id}', [JobPostingController::class, 'destroyResponsibility']);
     Route::delete('delete-skills/{id}', [JobPostingController::class, 'destroySkills']);
     Route::delete('delete-qualifications/{id}', [JobPostingController::class, 'destroyQualifications']);
+    Route::post('add-employer-questions/{id}', [JobPostingController::class, 'addQuestionSet']);
 
    
 
