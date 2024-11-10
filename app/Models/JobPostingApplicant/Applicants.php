@@ -27,6 +27,6 @@ class Applicants extends Model
 
     public function jobApplied()
     {
-        return $this->belongsTo(JobPosting::class);
+        return $this->belongsTo(JobPosting::class, 'job_id');
     }       
 }

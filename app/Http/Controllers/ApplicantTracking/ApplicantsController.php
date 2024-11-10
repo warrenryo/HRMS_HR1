@@ -10,7 +10,7 @@ class ApplicantsController extends Controller
 {
     public function index()
     {
-        $applicants = Applicants::all();
+        $applicants = Applicants::with('jobApplied')->get();
 
         return view('Admin.ATS.ApplicantsIndex', compact('applicants'));
     }
