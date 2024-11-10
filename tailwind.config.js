@@ -41,6 +41,16 @@ export default {
                     light: "#fff9ed",
                     "dark-light": "rgba(226,160,63,.15)",
                 },
+                hotel_green: {
+                    DEFAULT: "#028801",
+                    light: "#129c15",
+                    dark: "#19711a"
+                },
+                hotel_black: {
+                    DEFAULT: "#121212",
+                    light: "#272627",
+                    extra_light: "#414141",
+                },
                 info: {
                     DEFAULT: "#2196f3",
                     light: "#e7f7ff",

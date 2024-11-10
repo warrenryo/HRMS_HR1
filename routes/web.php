@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\Company\CompanyController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\JobPortal\JobPortalApplicationController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\JobPortal\JobPortalController;
 use App\Http\Controllers\JobPosting\JobPostingController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApplicantTracking\ApplicantsController;
+use App\Http\Controllers\JobPortal\JobPortalApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,8 @@ Route::get('/dashboard', function () {
 
  //Application
  Route::get('apply/form/resume/{id}', [JobPortalApplicationController::class, 'resumeForm']);
+ Route::post('apply/form/resume/for-review/{id}', [JobPortalApplicationController::class, 'reviewForm']);
+ Route::get('apply/form/reviewForm/{job_applied_id}/{job_id}', [JobPortalApplicationController::class,'reviewApplication'])->name('reviewFormApplication');
 
 
 Route::middleware('auth')->group(function () {
@@ -64,7 +67,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
     Route::post('add-employer-questions/{id}', [JobPostingController::class, 'addQuestionSet']);
 
    
-
+    //ATS
+    Route::get('applicants/candidates', [ApplicantsController::class, 'index']);
 
     //APPS
     Route::get('apps-todolist', [HomeController::class, 'todolist']);

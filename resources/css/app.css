@@ -64,7 +64,8 @@
     }
 
     body.dark {
-        @apply bg-[#060818];
+        /* @apply bg-[#060818]; */
+        @apply bg-[#121212];
     }
 
     /* Panel */
