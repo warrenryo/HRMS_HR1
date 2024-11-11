@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('prev_job_title')->nullable();
             $table->string('prev_company')->nullable();
             $table->string('resume_path');
+            $table->TEXT('AI_Prompt')->default('No Response');
+            $table->boolean('isCandidate')->default(false);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('job_id')->references('id')->on('job_posting')->onDelete('cascade');
             $table->timestamps();

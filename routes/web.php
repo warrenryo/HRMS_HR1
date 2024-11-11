@@ -69,6 +69,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
    
     //ATS
     Route::get('applicants/candidates', [ApplicantsController::class, 'index']);
+    Route::post('add-candidate/{id}',[ApplicantsController::class,'addCandidate']);
+    Route::get('candidates/all-candidates', [ApplicantsController::class,'GetAllCandidates']);
 
     //APPS
     Route::get('apps-todolist', [HomeController::class, 'todolist']);

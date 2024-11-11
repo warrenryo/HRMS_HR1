@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\JobPortal;
 
+use OpenAI\Client;
 use Illuminate\Http\Request;
+use OpenAI\Laravel\Facades\OpenAI;
 use App\Http\Controllers\Controller;
-use App\Models\JobPosting\EmployerCheckboxOptions;
-use App\Models\JobPosting\EmployerQuestions;
 use Illuminate\Support\Facades\Auth;
 use App\Models\JobPosting\JobPosting;
+use Illuminate\Support\Facades\Validator;
+use App\Models\JobPosting\EmployerQuestions;
+use App\Models\JobPostingApplicant\Applicants;
+use App\Models\JobPosting\EmployerCheckboxOptions;
 use App\Models\JobPostingApplicant\ApplicantAnswer;
 use App\Models\JobPostingApplicant\ApplicantAnswerCheckbox;
-use App\Models\JobPostingApplicant\Applicants;
-use Illuminate\Support\Facades\Validator;
 
 class JobPortalApplicationController extends Controller
 {
@@ -50,10 +52,21 @@ class JobPortalApplicationController extends Controller
         $application->last_name = $request->input('lastname');
         $application->email = $request->input('email');
         $application->phone = $request->input('number');
-        $application->city_state = $request->input('city'); 
+        $application->city_state = $request->input('city');
         $application->prev_job_title = $request->input('prev_job_title');
         $application->prev_company = $request->input('prev_company');
         $application->resume_path = $resumePath;
+
+
+        $resumeText = $this->parseResume(storage_path('app/public/' . $resumePath));
+
+        $jobDescription = JobPosting::findOrFail($jobId)->role_description;
+
+        // Analyze the resume using AI (OpenAI)
+        $aiScore = $this->analyzeResume($resumeText, $jobDescription);
+
+        // Store the AI Score in the Applicants table or in a new table (optional)
+        $application->AI_Prompt = $aiScore;  // Assuming there's an `ai_score` column in Applicants
         $application->save();
 
         if ($request->has('answers')) {
@@ -61,7 +74,7 @@ class JobPortalApplicationController extends Controller
             foreach ($request->answers as $questionId => $answer) {
                 // Assuming EmployerQuestions model exists and you want to store the answer
                 $employer_question = EmployerQuestions::findOrFail($questionId);
-                
+
                 ApplicantAnswer::create([
                     'employer_question_id' => $employer_question->id,
                     'applicant_id' => $application->id,
@@ -70,14 +83,13 @@ class JobPortalApplicationController extends Controller
             }
         }
 
-        if($request->has('checkbox_answers'))
-        {
+        if ($request->has('checkbox_answers')) {
             foreach ($request->checkbox_answers as $questionId => $checkboxAnswers) {
                 // Iterate over the selected checkbox options for the given question
                 foreach ($checkboxAnswers as $checkboxAnswer) {
                     // Find the employer checkbox option by its ID
                     $employer_checkbox_option = EmployerCheckboxOptions::where('employer_questions_id', $questionId)->first(); // This gives the option with the checkbox id
-        
+
                     // Create a new ApplicantAnswerCheckbox record
                     ApplicantAnswerCheckbox::create([
                         'checkbox_answers_id' => $employer_checkbox_option->employer_questions_id,
@@ -88,9 +100,70 @@ class JobPortalApplicationController extends Controller
             }
         }
 
-        $job_applied = Applicants::where('user_id', Auth::user()->id)->first();
+        // $job_applied = Applicants::where('user_id', Auth::user()->id)->first();
 
-        return redirect()->route('reviewFormApplication', ['job_applied_id' => $job_applied->id, 'job_id' => $jobId]);
+        return redirect()->route('reviewFormApplication', ['job_applied_id' => $application->id, 'job_id' => $jobId]);
+    }
+
+    private function parseResume($filePath)
+    {
+        $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+
+        if ($extension === 'pdf') {
+            return $this->parsePDF($filePath);
+        }
+        // } elseif ($extension === 'docx') {
+        //     return $this->parseDOCX($filePath);
+        // } else {
+        //     return file_get_contents($filePath);  // For TXT files
+        // }
+    }
+
+    private function parsePDF($filePath)
+    {
+        $parser = new \Smalot\PdfParser\Parser();
+        $pdf = $parser->parseFile($filePath);
+        return $pdf->getText();
+    }
+
+    // private function parseDOCX($filePath)
+    // {
+    //     $phpWord = \PhpOffice\PhpWord\IOFactory::load($filePath);
+    //     $text = '';
+    //     foreach ($phpWord->getSections() as $section) {
+    //         foreach ($section->getElements() as $element) {
+    //             if ($element instanceof \PhpOffice\PhpWord\Element\Text) {
+    //                 $text .= $element->getText() . ' ';
+    //             }
+    //         }
+    //     }
+    //     return $text;
+    // }
+
+    private function analyzeResume($resumeText, $jobDescription)
+    {
+        $result = OpenAi::chat()->create([
+            "model" => "gpt-3.5-turbo",
+            "temperature" => 0.7,
+            "top_p" => 1,
+            "frequency_penalty" => 0,
+            "presence_penalty" => 0,
+            'max_tokens' => 600,
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You are a helpful assistant that can analyze resumes and job descriptions.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => sprintf('Analyze the following resume and job description and give a ratings from 1 to 10 if the applicant is passed on the said role. Give the final Ratings on the last of your sentence. Resume: %s Job Description: %s', $resumeText, $jobDescription),
+                ],
+            ],
+        ]);
+
+        $content = trim($result['choices'][0]['message']['content']);
+
+        return $content;
     }
 
 
@@ -99,6 +172,6 @@ class JobPortalApplicationController extends Controller
         $application = Applicants::find($jobApplication_id);
         $job = JobPosting::find($job_id);
 
-        return view('Sys.JobPortalApplication.ReviewForm', compact('application','job'));
+        return view('Sys.JobPortalApplication.ReviewForm', compact('application', 'job'));
     }
 }

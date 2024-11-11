@@ -12,7 +12,7 @@ class Applicants extends Model
     use HasFactory;
     protected $table = 'applicants';
     protected $fillable = [
-        'user_id', 'job_id', 'first_name', 'last_name', 'email', 'prev_job_title', 'prev_company', 'answers', 'resume_path','phone','city_state'
+        'user_id', 'job_id', 'first_name', 'last_name', 'email', 'prev_job_title', 'prev_company', 'answers', 'resume_path','phone','city_state','AI_Prompt','isCandidate'
     ];
 
     public function userApplicant()

@@ -39,15 +39,16 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->city_state}} </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->phone}}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200"> {{ \Carbon\Carbon::parse($applicant->created_at)->format('F j, Y, g:i a') }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
+                                        <td class="px-6 py-4 text-sm text-gray-800 dark:text-neutral-200">
                                             <div class="hs-tooltip inline-block">
-                                                <button data-hs-overlay="#view-details-{{$applicant->id}}"  type="button" class="btn btn-info py-2 px-3">
+                                                <button data-hs-overlay="#view-details-{{$applicant->id}}" type="button" class="btn btn-info py-2 px-3">
                                                     <i class="fa-solid fa-eye"></i>
                                                     <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700" role="tooltip">
                                                         View Details
                                                     </span>
                                                 </button>
                                             </div>
+
                                             @include('AdminComponents.Modals.ATS.ViewApplicantDetails')
                                         </td>
                                     </tr>

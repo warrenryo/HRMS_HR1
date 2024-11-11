@@ -96,12 +96,13 @@
                     </h1>
                     <div class="mt-10">
                         <label for="large-file-input" class="sr-only">Choose file</label>
-                        <input type="file" required name="resume" id="large-file-input" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400
+                        <input type="file" accept=".pdf" required name="resume" id="large-file-input" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400
                                             file:bg-gray-50 file:border-0
                                             file:me-4
                                             file:py-3 file:px-4 file:sm:py-5
                                             dark:file:bg-neutral-700 dark:file:text-neutral-400">
                     </div>
+                    <p class="mt-2 dark:text-neutral-300">We accept only PDF files</p>
                 </div>
                 <div class="flex justify-end mt-10">
                     <button type="button" data-hs-overlay="#hs-cookies" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-teal-500 text-white hover:bg-teal-600 focus:outline-none focus:bg-teal-600 disabled:opacity-50 disabled:pointer-events-none">
