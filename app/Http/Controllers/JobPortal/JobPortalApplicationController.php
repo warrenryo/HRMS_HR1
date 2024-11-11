@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\JobPortal;
 
-use OpenAI\Client;
 use Illuminate\Http\Request;
 use OpenAI\Laravel\Facades\OpenAI;
 use App\Http\Controllers\Controller;
