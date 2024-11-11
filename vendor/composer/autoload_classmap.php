@@ -44,6 +44,7 @@ return array(
     'App\\Models\\JobPostingApplicant\\ApplicantAnswer' => $baseDir . '/app/Models/JobPostingApplicant/ApplicantAnswer.php',
     'App\\Models\\JobPostingApplicant\\ApplicantAnswerCheckbox' => $baseDir . '/app/Models/JobPostingApplicant/ApplicantAnswerCheckbox.php',
     'App\\Models\\JobPostingApplicant\\Applicants' => $baseDir . '/app/Models/JobPostingApplicant/Applicants.php',
+    'App\\Models\\JobPostingCandidate\\Candidates' => $baseDir . '/app/Models/JobPostingCandidate/Candidates.php',
     'App\\Models\\JobPosting\\EmployerCheckboxOptions' => $baseDir . '/app/Models/JobPosting/EmployerCheckboxOptions.php',
     'App\\Models\\JobPosting\\EmployerQuestions' => $baseDir . '/app/Models/JobPosting/EmployerQuestions.php',
     'App\\Models\\JobPosting\\JobEmploymentSetup' => $baseDir . '/app/Models/JobPosting/JobEmploymentSetup.php',

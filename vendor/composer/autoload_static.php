@@ -616,6 +616,7 @@ class ComposerStaticInit61ff18711e3f139e0de52b44094c9ffa
         'App\\Models\\JobPostingApplicant\\ApplicantAnswer' => __DIR__ . '/../..' . '/app/Models/JobPostingApplicant/ApplicantAnswer.php',
         'App\\Models\\JobPostingApplicant\\ApplicantAnswerCheckbox' => __DIR__ . '/../..' . '/app/Models/JobPostingApplicant/ApplicantAnswerCheckbox.php',
         'App\\Models\\JobPostingApplicant\\Applicants' => __DIR__ . '/../..' . '/app/Models/JobPostingApplicant/Applicants.php',
+        'App\\Models\\JobPostingCandidate\\Candidates' => __DIR__ . '/../..' . '/app/Models/JobPostingCandidate/Candidates.php',
         'App\\Models\\JobPosting\\EmployerCheckboxOptions' => __DIR__ . '/../..' . '/app/Models/JobPosting/EmployerCheckboxOptions.php',
         'App\\Models\\JobPosting\\EmployerQuestions' => __DIR__ . '/../..' . '/app/Models/JobPosting/EmployerQuestions.php',
         'App\\Models\\JobPosting\\JobEmploymentSetup' => __DIR__ . '/../..' . '/app/Models/JobPosting/JobEmploymentSetup.php',
