@@ -64,7 +64,7 @@
                                 <p class="font-bold text-gray-700 dark:text-gray-300 ">{{$applicant->jobApplicantCandidate->prev_company}}</p>
                             </div>
                         </div>
-                        <h1 class="text-gray-500 font-bold pb-2 mt-4">AI Perspective</h1>
+                        <h1 class="text-gray-500 font-bold pb-2 mt-4">AI Perspective <i class="fa-solid fa-robot ml-2"></i></h1>
                         <div class="border dark:border-hotel_black-extra_light  rounded-lg">
                             <div class="p-4">
                                 <h1 class="text-sm text-gray-500 mb-1">AI Response</h1>

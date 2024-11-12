@@ -1,16 +1,20 @@
 <x-app-layout>
-    @section('title', 'Candidate Lists')
+    @section('title', 'AI Prediction')
     <ul class="flex space-x-2 rtl:space-x-reverse pb-6">
         <li>
             <a href="{{ url('/dashboard')}}" class="text-primary hover:underline">Dashboard</a>
         </li>
         <li class="before:content-['/'] before:mr-1 rtl:before:ml-1">
-            <span>Candidate Lists</span>
+            <span>AI Prediction</span>
         </li>
     </ul>
 
     <div class="panel">
-
+        <div class="flex justify-end">
+            <a href="{{url('ai-candidate-prediction')}}" class="btn btn-primary">
+                <i class="fa-solid fa-robot mr-2"></i> AI Prediction
+            </a>
+        </div>
         <div class="mt-4">
             <div class="flex flex-col">
                 <div class="-m-1.5 overflow-x-auto">

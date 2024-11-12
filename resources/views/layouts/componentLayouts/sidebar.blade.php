@@ -6,7 +6,7 @@
                 <a href="/" class="main-logo flex items-center shrink-0">
                     <img class="w-8 ml-[5px] flex-none" src="{{ URL('assets/images/ANAA LOGO.png') }}" alt="image" />
                     <span
-                        class="text-2xl ltr:ml-1.5 rtl:mr-1.5  font-semibold  align-middle lg:inline dark:text-white-light">ANAA</span>
+                        class="text-2xl ltr:ml-1.5 rtl:mr-1.5  font-semibold  align-middle lg:inline dark:text-white-light">ParadiseHotel</span>
                 </a>
                 <a href="javascript:;"
                     class="collapse-icon w-8 h-8 rounded-full flex items-center hover:bg-gray-500/10 dark:hover:bg-dark-light/10 dark:text-white-light transition duration-300 rtl:rotate-180"

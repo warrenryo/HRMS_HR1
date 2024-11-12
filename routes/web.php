@@ -71,6 +71,10 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
     Route::get('applicants/candidates', [ApplicantsController::class, 'index']);
     Route::post('add-candidate/{id}',[ApplicantsController::class,'addCandidate']);
     Route::get('candidates/all-candidates', [ApplicantsController::class,'GetAllCandidates']);
+    Route::get('ai-candidate-prediction', [ApplicantsController::class, 'AIPredictionCandidate']);
+    Route::get('ai-response/{ai_response_id}', [ApplicantsController::class, 'AIResponseFunction'])->name('ai_response');
+    Route::get('show-candidate/{candidate_id}/{job_id}', [ApplicantsController::class, 'showCandidate']);
+    Route::post('schedule-initial-interview/{applicant_id}/{session_id}', [ApplicantsController::class,'ScheduleInterview']);
 
     //APPS
     Route::get('apps-todolist', [HomeController::class, 'todolist']);
