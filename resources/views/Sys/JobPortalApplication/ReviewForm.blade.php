@@ -35,7 +35,7 @@
         @if($job->questions->count() > 0)
         <div class="h-[60vh] my-10">
             <h1 class="text-gray-500 font-bold pb-2">Your resume</h1>
-            <embed src="{{ asset('storage/' . $application->resume_path) }}#toolbar=0" width="100%" height="100%" frameborder="0"></e>
+            <embed src="{{ asset('resumes/' . $application->resume_path) }}#toolbar=0" width="100%" height="100%" frameborder="0"></e>
         </div>
         @else
         <div class="mt-4 ">
@@ -92,7 +92,7 @@
         </div>
     </div>
     @else
-    <embed src="{{ asset('storage/' . $application->resume_path) }}#toolbar=0" width="100%" height="100%" frameborder="0"></e>
+    <embed src="{{ asset('resumes/' . $application->resume_path) }}#toolbar=0" width="100%" height="100%" frameborder="0"></e>
     @endif
 </div>
 <script>

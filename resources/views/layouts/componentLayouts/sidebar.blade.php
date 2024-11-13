@@ -214,8 +214,8 @@
                 </li>
 
                 <li class="menu nav-item">
-                    <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'interviews' }"
-                        @click="activeDropdown === 'interviews' ? activeDropdown = null : activeDropdown = 'interviews'">
+                    <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'Iinterviews' }"
+                        @click="activeDropdown === 'Iinterviews' ? activeDropdown = null : activeDropdown = 'Iinterviews'">
                         <div class="flex items-center">
 
                             <svg class="group-hover:!text-primary" width="20" height="20" viewBox="0 0 24 24"
@@ -231,9 +231,9 @@
                                     fill="currentColor" />
                             </svg>
                             <span
-                                class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Inteviews</span>
+                                class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Initial Inteviews</span>
                         </div>
-                        <div class="rtl:rotate-180" :class="{ '!rotate-90': activeDropdown === 'interviews' }">
+                        <div class="rtl:rotate-180" :class="{ '!rotate-90': activeDropdown === 'Iinterviews' }">
 
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -242,10 +242,10 @@
                             </svg>
                         </div>
                     </button>
-                    <ul x-cloak x-show="activeDropdown === 'interviews'" x-collapse class="sub-menu text-gray-500">
+                    <ul x-cloak x-show="activeDropdown === 'Iinterviews'" x-collapse class="sub-menu text-gray-500">
                         <li>
-                            <a href="/candidates/all-candidates">Initial Inteviews</a>
-                            <a href="/candidates/all-candidates">Final Interviews</a>
+                            <a href="/initial-interviews/all-interviews">All Inteviews</a>
+                            <a href="/initial-interviews/todays-interview">Today's Interviews</a>
                         </li>
                     </ul>
                 </li>

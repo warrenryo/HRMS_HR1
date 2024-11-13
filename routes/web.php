@@ -7,6 +7,7 @@ use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\JobPortal\JobPortalController;
 use App\Http\Controllers\JobPosting\JobPostingController;
 use App\Http\Controllers\ApplicantTracking\ApplicantsController;
+use App\Http\Controllers\ApplicantTracking\InitialInterviewsController;
 use App\Http\Controllers\JobPortal\JobPortalApplicationController;
 
 /*
@@ -75,6 +76,10 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
     Route::get('ai-response/{ai_response_id}', [ApplicantsController::class, 'AIResponseFunction'])->name('ai_response');
     Route::get('show-candidate/{candidate_id}/{job_id}', [ApplicantsController::class, 'showCandidate']);
     Route::post('schedule-initial-interview/{applicant_id}/{session_id}', [ApplicantsController::class,'ScheduleInterview']);
+    Route::post('schedule-initial-interview-index/{applicant_id}', [ApplicantsController::class,'ScheduleInterviewIndex']);
+    //Initial Inteviews
+    Route::get('initial-interviews/all-interviews', [InitialInterviewsController::class, 'GetAllInitialInterviews']);
+    Route::get('initial-interviews/todays-interview', [InitialInterviewsController::class,'GetTodaysInterview']);
 
     //APPS
     Route::get('apps-todolist', [HomeController::class, 'todolist']);

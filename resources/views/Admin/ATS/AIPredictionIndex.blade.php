@@ -15,7 +15,7 @@
             <div class="max-w-[18rem] w-full bg-[#3b3f5c] shadow-[4px_6px_10px_-3px_#bfc9d4] rounded border border-[#e0e6ed] dark:border-[#1b2e4b] dark:bg-[#191e3a] dark:shadow-none p-5">
                 <div class="text-center text-black-light">
                     <div class="flex justify-center pb-6">
-                        <embed src="{{ asset('storage/resumes/xYBt1Lh8lRo7piGLxMUjjVuEFNAzxM96MIgCkVqF.pdf' ) }}" width="100%" height="100%" frameborder="0"></e>
+                        <embed src="{{ asset('resumes/'.$result['candidate_resume'] ) }}" width="100%" height="100%" frameborder="0"></e>
                     </div>
                     <h5 class="text-white text-[15px] font-semibold mb-2">{{ $result['candidate_name'] }}</h5>
                     <p>Applying for {{ $result['job_title'] }}</p>

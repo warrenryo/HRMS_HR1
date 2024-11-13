@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\ApplicantTracking;
 
+use App\Mail\HRMailer;
 use Illuminate\Http\Request;
 use OpenAI\Laravel\Facades\OpenAI;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Models\AIModels\AIPredictionResponse;
-use App\Models\Interviews\InitialInterviewCandidate;
+use Illuminate\Support\Facades\Mail;
 use App\Models\JobPosting\JobPosting;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\AIModels\AIPredictionResponse;
 use App\Models\JobPostingApplicant\Applicants;
 use App\Models\JobPostingCandidate\Candidates;
+use App\Models\Interviews\InitialInterviewCandidate;
 
 class ApplicantsController extends Controller
 {
@@ -65,7 +67,7 @@ class ApplicantsController extends Controller
             if ($job) {
                 // Get the resume file path and parse the resume into text
                 $resumePath = $candidate->jobApplicantCandidate->resume_path;
-                $resumeText = $this->parseResume(storage_path('app/public/' . $resumePath));
+                $resumeText = $this->parseResume(public_path('resumes/' . $resumePath));
     
                 // Call the AI to analyze the resume and job description
                 $aiScore = $this->analyzeResume($resumeText, $job->role_description, $candidate->jobApplicantCandidate->prev_job_title);
@@ -210,7 +212,7 @@ class ApplicantsController extends Controller
 
     public function showCandidate($candidate_id, $session_id)
     {
-        $applicant = Candidates::with('jobApplicantCandidate')->where('id', $candidate_id)->where('isForInteview', false)->first();
+        $applicant = Candidates::with('jobApplicantCandidate')->where('id', $candidate_id)->first();
         $ai_score = AIPredictionResponse::where('candidate_id', $candidate_id)->where('responses_session', $session_id)->first();
 
         return view('AdminComponents.Modals.ATS.AIPredictionPage', compact('applicant', 'session_id','ai_score'));
@@ -219,8 +221,9 @@ class ApplicantsController extends Controller
 
     public function ScheduleInterview(Request $request, $applicant_id, $session_id)
     {
-        $candidate = Candidates::where('applicant_id', $applicant_id)->where('isForInteview', false)->first();
+        $candidate = Candidates::with('jobApplicantCandidate')->where('applicant_id', $applicant_id)->first();
         $ai_response_model = AIPredictionResponse::where('candidate_id', $candidate->id)->where('isSelected', false)->first();
+        $job = JobPosting::where('id', $candidate->jobApplicantCandidate->job_id)->first();
         $initial = new InitialInterviewCandidate();
 
         if($initial)
@@ -240,10 +243,59 @@ class ApplicantsController extends Controller
                 'link' => $request->link,
                 'applicant_id' => $applicant_id
             ]);
-
+            Mail::to($candidate->jobApplicantCandidate->email)
+            ->cc('paradise.hotel@gmail.com')
+            ->bcc('hr.hotel@gmail.com')
+            ->send(new HRMailer($candidate, 
+            $request->date, 
+            $request->time, 
+            $request->via, 
+            $request->link,
+                $candidate->jobApplicantCandidate->first_name, $candidate->jobApplicantCandidate->last_name,
+                $job->title));
             Alert::success('Success', 'This applicant has been added to Initial Interviews');
             return redirect('ai-response/'.$session_id);
         }
     }
+
+    public function ScheduleInterviewIndex(Request $request, $applicant_id)
+    {
+        $candidate = Candidates::with('jobApplicantCandidate')->where('applicant_id', $applicant_id)->first();
+        $ai_response_model = AIPredictionResponse::where('candidate_id', $candidate->id)->first();
+        $job = JobPosting::where('id', $candidate->jobApplicantCandidate->job_id)->first();
+        $initial = new InitialInterviewCandidate();
+
+        if($initial)
+        {
+            $candidate->update([
+                'isForInteview' => true,
+            ]);
+
+            $ai_response_model->update([
+                'isSelected' => true
+            ]);
+            
+            $initial->create([
+                'date' => $request->date,
+                'time' => $request->time,
+                'via' => $request->via,
+                'link' => $request->link,
+                'applicant_id' => $applicant_id
+            ]);
+            Mail::to($candidate->jobApplicantCandidate->email)
+            ->cc('paradise.hotel@gmail.com')
+            ->bcc('hr.hotel@gmail.com')
+            ->send(new HRMailer($candidate, 
+            $request->date, 
+            $request->time, 
+            $request->via, 
+            $request->link,
+                $candidate->jobApplicantCandidate->first_name, $candidate->jobApplicantCandidate->last_name,
+                $job->title));
+            Alert::success('Applicant has been added to Initial Interview', 'The Interview Email has been send to '.$candidate->jobApplicantCandidate->email.'');
+            return redirect()->back();
+        }
+    }
+
 
 }

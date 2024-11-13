@@ -37,8 +37,24 @@ class JobPortalApplicationController extends Controller
 
         // Handle the file upload for the resume
         if ($request->hasFile('resume') && $request->file('resume')->isValid()) {
-            // Store the file in the 'public' disk (e.g., storage/app/public)
-            $resumePath = $request->file('resume')->store('resumes', 'public');
+            $file = $request->file('resume');
+    
+            // Define the path to store the file in the public folder
+                    $path = public_path('resumes');  // This will store the file in the public/resumes folder
+                    
+                    // Make sure the directory exists
+                    if (!file_exists($path)) {
+                        mkdir($path, 0777, true);  // Create the folder if it doesn't exist
+                    }
+                    
+                    // Generate a unique filename (you can change this logic as needed)
+                    $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+                    
+                    // Move the file to the public folder
+                    $file->move($path, $fileName);
+                    
+                    // Return the file path
+                    $resumePath = $fileName;
         } else {
             return back()->with('error', 'There was an issue uploading your resume.');
         }
@@ -57,7 +73,7 @@ class JobPortalApplicationController extends Controller
         $application->resume_path = $resumePath;
 
 
-        $resumeText = $this->parseResume(storage_path('app/public/' . $resumePath));
+        $resumeText = $this->parseResume(public_path('resumes/' . $resumePath));
 
         $jobDescription = JobPosting::findOrFail($jobId)->role_description;
 

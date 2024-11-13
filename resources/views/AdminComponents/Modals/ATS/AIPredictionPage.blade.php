@@ -86,7 +86,7 @@
                 @if($job->questions->count() > 0)
                 <div class="h-[60vh] my-10">
                     <h1 class="text-gray-500 font-bold pb-2">Your resume</h1>
-                    <embed src="{{ asset('storage/' . $applicant->jobApplicantCandidate->resume_path) }}" width="100%" height="100%" frameborder="0"></e>
+                    <embed src="{{ asset('resumes/' . $applicant->jobApplicantCandidate->resume_path) }}" width="100%" height="100%" frameborder="0"></e>
                 </div>
                 @else
 
@@ -138,7 +138,7 @@
                 </div>
             </div>
             @else
-            <embed src="{{ asset('storage/' . $applicant->jobApplicantCandidate->resume_path) }}" width="100%" height="100%" frameborder="0"></e>
+            <embed src="{{ asset('resumes/' . $applicant->jobApplicantCandidate->resume_path) }}" width="100%" height="100%" frameborder="0"></e>
             @endif
 
         </div>

@@ -29,22 +29,22 @@
                         <div class="border dark:border-hotel_black-extra_light  rounded-lg">
                             <div class="p-4">
                                 <h1 class="text-sm text-gray-500 mb-1">Full Name</h1>
-                                <p class="font-bold text-gray-700 uppercase dark:text-gray-300 ">{{$applicant->first_name}} {{$applicant->last_name}}</p>
+                                <p class="font-bold text-gray-700 uppercase dark:text-gray-300 ">{{$applicant->applicantInitial->first_name}} {{$applicant->applicantInitial->last_name}}</p>
                             </div>
                             <hr class="dark:border-hotel_black-extra_light" />
                             <div class="p-4">
                                 <h1 class="text-sm text-gray-500 mb-1">Email</h1>
-                                <p class="font-bold text-gray-700 dark:text-gray-300 ">{{$applicant->email}}</p>
+                                <p class="font-bold text-gray-700 dark:text-gray-300 ">{{$applicant->applicantInitial->email}}</p>
                             </div>
                             <hr class="dark:border-hotel_black-extra_light" />
                             <div class="p-4">
                                 <h1 class="text-sm text-gray-500 mb-1">City,State</h1>
-                                <p class="font-bold text-gray-700 dark:text-gray-300 ">{{$applicant->city_state}}</p>
+                                <p class="font-bold text-gray-700 dark:text-gray-300 ">{{$applicant->applicantInitial->city_state}}</p>
                             </div>
                             <hr class="dark:border-hotel_black-extra_light" />
                             <div class="p-4">
                                 <h1 class="text-sm text-gray-500 mb-1">Phone</h1>
-                                <p class="font-bold text-gray-700 dark:text-gray-300 ">+63 {{$applicant->phone}}</p>
+                                <p class="font-bold text-gray-700 dark:text-gray-300 ">+63 {{$applicant->applicantInitial->phone}}</p>
                             </div>
                         </div>
                         <div class="pb-6 mt-4">
@@ -56,28 +56,28 @@
                         <div class="border dark:border-hotel_black-extra_light  rounded-lg">
                             <div class="p-4">
                                 <h1 class="text-sm text-gray-500 mb-1">Previous Job</h1>
-                                <p class="font-bold text-gray-700 dark:text-gray-300 ">{{$applicant->prev_job_title}}</p>
+                                <p class="font-bold text-gray-700 dark:text-gray-300 ">{{$applicant->applicantInitial->prev_job_title}}</p>
                             </div>
                             <hr class="dark:border-hotel_black-extra_light" />
                             <div class="p-4">
                                 <h1 class="text-sm text-gray-500 mb-1">Previous Company</h1>
-                                <p class="font-bold text-gray-700 dark:text-gray-300 ">{{$applicant->prev_company}}</p>
+                                <p class="font-bold text-gray-700 dark:text-gray-300 ">{{$applicant->applicantInitial->prev_company}}</p>
                             </div>
                         </div>
                         <h1 class="text-gray-500 font-bold pb-2 mt-4">AI Perspective <i class="fa-solid fa-robot ml-2"></i></h1>
                         <div class="border dark:border-hotel_black-extra_light  rounded-lg">
                             <div class="p-4">
                                 <h1 class="text-sm text-gray-500 mb-1">AI Response</h1>
-                                <p>{{$applicant->AI_Prompt}}</p>
+                                <p>{{$applicant->applicantInitial->AI_Prompt}}</p>
                             </div>
                         </div>
                         @php
-                        $job = \App\Models\JobPosting\JobPosting::find($applicant->job_id);
+                        $job = \App\Models\JobPosting\JobPosting::find($applicant->applicantInitial->job_id);
                         @endphp
                         @if($job->questions->count() > 0)
                         <div class="h-[60vh] my-10">
                             <h1 class="text-gray-500 font-bold pb-2">Your resume</h1>
-                            <embed src="{{ asset('resumes/' . $applicant->resume_path) }}" width="100%" height="100%" frameborder="0"></e>
+                            <embed src="{{ asset('resumes/' . $applicant->applicantInitial->resume_path) }}" width="100%" height="100%" frameborder="0"></e>
                         </div>
                         @else
 
@@ -129,7 +129,7 @@
                         </div>
                     </div>
                     @else
-                    <embed src="{{ asset('resumes/' . $applicant->resume_path) }}" width="100%" height="100%" frameborder="0"></e>
+                    <embed src="{{ asset('resumes/' . $applicant->applicantInitial->resume_path) }}" width="100%" height="100%" frameborder="0"></e>
                     @endif
                 
                 </div>
@@ -138,11 +138,6 @@
             <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-neutral-700">
                 <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" data-hs-overlay="#view-details-{{$applicant->id}}">
                     Close
-                </button>
-                <button type="button" class="btn btn-success" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-stacked-overlays-2" data-hs-overlay="#hs-stacked-overlays-2" data-hs-overlay-options='{
-                                                            "isClosePrev": false
-                                                            }'>
-                    Add as Candidate
                 </button>
             </div>
         </div>
