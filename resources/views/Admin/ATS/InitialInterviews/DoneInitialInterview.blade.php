@@ -1,11 +1,11 @@
 <x-app-layout>
-    @section('title', 'Today Interview Lists')
+    @section('title', 'Done Interview Lists')
     <ul class="flex space-x-2 rtl:space-x-reverse pb-6">
         <li>
             <a href="{{ url('/dashboard')}}" class="text-primary hover:underline">Dashboard</a>
         </li>
         <li class="before:content-['/'] before:mr-1 rtl:before:ml-1">
-            <span>Today's Interview Lists</span>
+            <span>Done Interview Lists</span>
         </li>
     </ul>
 
@@ -34,14 +34,14 @@
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                                     @foreach($applicants as $applicant)
-                                    <tr class="duration-300 {{\Carbon\Carbon::parse($applicant->date)->isToday() && \Carbon\Carbon::parse($applicant->time)->isSameHour(\Carbon\Carbon::now()) ? 'bg-orange-200 dark:bg-orange-200 hover:bg-orange-300 dark:hover:bg-orange-300' : 'hover:bg-gray-100 dark:hover:bg-neutral-700 ' }}">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800  {{ \Carbon\Carbon::parse($applicant->time)->isSameHour(\Carbon\Carbon::now()) ? 'dark:text-black' : 'dark:text-neutral-300 ' }}">{{$applicant->id}}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 {{ \Carbon\Carbon::parse($applicant->time)->isSameHour(\Carbon\Carbon::now()) ? 'text-black' : 'dark:text-neutral-300 ' }}">{{$applicant->applicantInitial->first_name}} {{$applicant->applicantInitial->last_name}}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 {{ \Carbon\Carbon::parse($applicant->time)->isSameHour(\Carbon\Carbon::now()) ? 'text-black' : 'dark:text-neutral-300 ' }}">{{$applicant->applicantInitial->email}}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800  {{ \Carbon\Carbon::parse($applicant->time)->isSameHour(\Carbon\Carbon::now()) ? 'text-black' : 'dark:text-neutral-300 ' }}">{{$applicant->applicantInitial->jobApplied->title}}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800  {{ \Carbon\Carbon::parse($applicant->time)->isSameHour(\Carbon\Carbon::now()) ? 'text-black' : 'dark:text-neutral-300 ' }}">{{ \Carbon\Carbon::parse($applicant->date)->format('F j, Y') }} </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800  {{ \Carbon\Carbon::parse($applicant->time)->isSameHour(\Carbon\Carbon::now()) ? 'text-black' : 'dark:text-neutral-300 ' }}"> {{ \Carbon\Carbon::parse($applicant->time)->format('h:i A') }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800  {{ \Carbon\Carbon::parse($applicant->time)->isSameHour(\Carbon\Carbon::now()) ? 'text-black' : 'dark:text-neutral-300 ' }}"> {{$applicant->via}}</td>
+                                    <tr class="hover:bg-gray-100 dark:hover:bg-neutral-700 duration-300">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-300 ">{{$applicant->id}}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-300">{{$applicant->applicantInitial->first_name}} {{$applicant->applicantInitial->last_name}}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-300">{{$applicant->applicantInitial->email}}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-300">{{$applicant->applicantInitial->jobApplied->title}}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-300">{{ \Carbon\Carbon::parse($applicant->date)->format('F j, Y') }} </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-300"> {{ \Carbon\Carbon::parse($applicant->time)->format('h:i A') }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-300"> {{$applicant->via}}</td>
                                         <td class="px-6 py-4 text-sm text-gray-800 dark:text-neutral-200">
                                                 <div class="hs-tooltip inline-block">
                                                     <button data-hs-overlay="#view-details-{{$applicant->id}}" type="button" class="btn btn-info py-2 px-3">
@@ -52,15 +52,15 @@
                                                     </button>
                                                 </div>
                                                 <div class="hs-tooltip inline-block">
-                                                    <button data-hs-overlay="#mark-as-done-{{$applicant->id}}" type="button" class="btn btn-success py-2 px-3">
-                                                        <i class="fa-solid fa-check"></i>
-                                                        <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700" role="tooltip">
-                                                            Schedule Initial Interview
-                                                        </span>
-                                                    </button>
-                                                </div>
+                                                <button data-hs-overlay="#final-interview-schedule-{{$applicant->id}}" type="button" class="btn btn-secondary py-2 px-3">
+                                                    <i class="fa-regular fa-calendar"></i>
+                                                    <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700" role="tooltip">
+                                                        Schedule Interview
+                                                    </span>
+                                                </button>
+                                            </div>
                                             @include('AdminComponents.Modals.ATS.InitialInterview.ViewInitialApplicantDetails')
-                                            @include('AdminComponents.Modals.ATS.InitialInterview.MarkAsDone')
+                                            @include('AdminComponents.Modals.ATS.InitialInterview.FinalScheduleInterview')
                                         </td>
                                     </tr>
                                     @endforeach

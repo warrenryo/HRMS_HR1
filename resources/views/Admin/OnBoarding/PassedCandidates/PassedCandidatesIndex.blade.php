@@ -1,22 +1,15 @@
 <x-app-layout>
-    @section('title', 'All Candidates')
+    @section('title', 'Passed Candidates')
     <ul class="flex space-x-2 rtl:space-x-reverse pb-6">
         <li>
             <a href="{{ url('/dashboard')}}" class="text-primary hover:underline">Dashboard</a>
         </li>
         <li class="before:content-['/'] before:mr-1 rtl:before:ml-1">
-            <span>All Candidates</span>
+            <span>Passed Candidates</span>
         </li>
     </ul>
 
     <div class="panel">
-        @if($applicants->count() > 0)
-        <div class="flex justify-end">
-            <a href="{{url('ai-candidate-prediction')}}" class="btn btn-primary">
-                <i class="fa-solid fa-robot mr-2"></i> AI Prediction
-            </a>
-        </div>
-        @endif
         <div class="mt-4">
             <div class="flex flex-col">
                 <div class="-m-1.5 overflow-x-auto">
@@ -39,11 +32,11 @@
                                     @foreach($applicants as $applicant)
                                     <tr class="hover:bg-gray-100 dark:hover:bg-neutral-700">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">{{$applicant->id}}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->jobApplicantCandidate->first_name}} {{$applicant->jobApplicantCandidate->last_name}}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->jobApplicantCandidate->email}}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->jobApplicantCandidate->jobApplied->title}}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->jobApplicantCandidate->city_state}} </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->jobApplicantCandidate->phone}}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->applicantInitial->first_name}} {{$applicant->applicantInitial->last_name}}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->applicantInitial->email}}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->applicantInitial->jobApplied->title}}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->applicantInitial->city_state}} </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->applicantInitial->phone}}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200"> {{ \Carbon\Carbon::parse($applicant->created_at)->format('F j, Y, g:i a') }}</td>
                                         <td class="px-6 py-4 text-sm text-gray-800 dark:text-neutral-200">
                                             <div class="hs-tooltip inline-block">
@@ -55,16 +48,16 @@
                                                 </button>
                                             </div>
                                             <div class="hs-tooltip inline-block">
-                                                <button data-hs-overlay="#interview-schedule-{{$applicant->id}}" type="button" class="btn btn-secondary py-2 px-3">
+                                                <button data-hs-overlay="#jobOffer-schedule-{{$applicant->id}}" type="button" class="btn btn-secondary py-2 px-3">
                                                     <i class="fa-regular fa-calendar"></i>
                                                     <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700" role="tooltip">
-                                                        Schedule Interview
+                                                        Schedule Job Offer
                                                     </span>
                                                 </button>
                                             </div>
 
-                                            @include('AdminComponents.Modals.ATS.ViewCandidateDetails')
-                                            @include('AdminComponents.Modals.ATS.ScheduleInterviewModal')
+                                            @include('AdminComponents.Modals.OnBoarding.PassedCandidates.ViewCandidateDetails')
+                                            @include('AdminComponents.Modals.OnBoarding.PassedCandidates.ScheduleJobOffer')
                                         </td>
                                     </tr>
                                     @endforeach

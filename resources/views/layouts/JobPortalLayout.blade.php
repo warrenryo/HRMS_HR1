@@ -130,13 +130,12 @@
           </div>
         </div>
         @else
-        <button class="px-4 py-2 text-gray-600 hover:text-gray-900">Login</button>
+        <a href="/login" class="px-4 py-2 text-neutral-300 hover:text-neutral-400">Login</a>
         @if(Route::has('register'))
-        <button class="px-4 py-2 text-gray-600 hover:text-gray-900">Register</button>
+        <a href="/register" class="px-4 py-2 text-neutral-300 hover:text-neutral-400">Register</a>
         @endif
         @endauth
         @endif
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Post a Job</button>
       </div>
     </div>
   </header>

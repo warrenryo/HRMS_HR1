@@ -149,7 +149,7 @@ class ApplicantsController extends Controller
                     [
                         'role' => 'user',
                         'content' => sprintf(
-                            'Analyze the following resume: %s, and job description: %s. Predict the success of the candidate based on these and give a success percentage at the end. Consider the candidate’s experience and remove any "\n" or "\n\n": %s and skills: %s.',
+                            'Analyze the following resume: %s, and job description: %s. Predict the success of the candidate based on these and give a success percentage at the end and make it text red. Consider the candidate’s experience and remove any "\n" or "\n\n": %s and skills: %s.',
                                 htmlspecialchars($resumeText),  // Resume text
                                 htmlspecialchars($jobDescription),  // Job description
                                 htmlspecialchars($additionalInfo1),  // Candidate experience
@@ -243,6 +243,8 @@ class ApplicantsController extends Controller
                 'link' => $request->link,
                 'applicant_id' => $applicant_id
             ]);
+
+            $isFinal = false;
             Mail::to($candidate->jobApplicantCandidate->email)
             ->cc('paradise.hotel@gmail.com')
             ->bcc('hr.hotel@gmail.com')
@@ -252,7 +254,7 @@ class ApplicantsController extends Controller
             $request->via, 
             $request->link,
                 $candidate->jobApplicantCandidate->first_name, $candidate->jobApplicantCandidate->last_name,
-                $job->title));
+                $job->title, $isFinal,));
             Alert::success('Success', 'This applicant has been added to Initial Interviews');
             return redirect('ai-response/'.$session_id);
         }
@@ -271,9 +273,12 @@ class ApplicantsController extends Controller
                 'isForInteview' => true,
             ]);
 
-            $ai_response_model->update([
-                'isSelected' => true
-            ]);
+            if($ai_response_model)
+            {
+                $ai_response_model->update([
+                    'isSelected' => true
+                ]);
+            }
             
             $initial->create([
                 'date' => $request->date,
@@ -282,6 +287,8 @@ class ApplicantsController extends Controller
                 'link' => $request->link,
                 'applicant_id' => $applicant_id
             ]);
+
+            $isFinal = false;
             Mail::to($candidate->jobApplicantCandidate->email)
             ->cc('paradise.hotel@gmail.com')
             ->bcc('hr.hotel@gmail.com')
@@ -290,8 +297,9 @@ class ApplicantsController extends Controller
             $request->time, 
             $request->via, 
             $request->link,
+            
                 $candidate->jobApplicantCandidate->first_name, $candidate->jobApplicantCandidate->last_name,
-                $job->title));
+                $job->title,$isFinal,));
             Alert::success('Applicant has been added to Initial Interview', 'The Interview Email has been send to '.$candidate->jobApplicantCandidate->email.'');
             return redirect()->back();
         }

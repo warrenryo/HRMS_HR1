@@ -1,11 +1,11 @@
 <x-app-layout>
-    @section('title', 'Initial Interview Lists')
+    @section('title', 'Final Interview Lists')
     <ul class="flex space-x-2 rtl:space-x-reverse pb-6">
         <li>
             <a href="{{ url('/dashboard')}}" class="text-primary hover:underline">Dashboard</a>
         </li>
         <li class="before:content-['/'] before:mr-1 rtl:before:ml-1">
-            <span>Initial Interview Lists</span>
+            <span>Final Interview Lists</span>
         </li>
     </ul>
 
@@ -26,7 +26,7 @@
                                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Applicant Name</th>
                                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Email</th>
                                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Job Applied</th>
-                                        <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Scheduled Initial Interview</th>
+                                        <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Scheduled Final Interview</th>
                                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Time</th>
                                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Via</th>
                                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Status</th>

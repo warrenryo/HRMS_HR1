@@ -3,41 +3,31 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Models\JobPostingCandidate\Candidates;
+use Illuminate\Queue\SerializesModels;
 
-class HRMailer extends Mailable
+class JobOffer extends Mailable
 {
     use Queueable, SerializesModels;
-    public $candidate;
     public $date;
-    public $isFinal;
     public $time;
-    public $via;
-    public $link;
     public $firstname;
     public $lastname;
     public $job;
     /**
      * Create a new message instance.
      */
-    public function __construct( $candidate, $date, $time, $via, $link, $firstname, $lastname, $job, $isFinal)
+    public function __construct($date, $time, $firstname, $lastname, $job)
     {
-        $this->candidate = $candidate;
         $this->date = $date;
         $this->time = $time;
-        $this->via = $via;
-        $this->link = $link;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->job = $job;
-        $this->isFinal = $isFinal;
     }
-
 
     /**
      * Get the message envelope.
@@ -45,7 +35,7 @@ class HRMailer extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Hotel Paradise Interview Scheduled',
+            subject: 'ParadiseHotel Job Offer for '.$this->job,
         );
     }
 
@@ -55,21 +45,16 @@ class HRMailer extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'Mail.Mailer',  // Define your view here
+            view: 'Mail.JobOffer',  // Define your view here
             with: [
-                'candidateName' => $this->candidate->name,
                 'date' => $this->date,
                 'time' => $this->time,
-                'via' => $this->via,
-                'link' => $this->link,
                 'firstname' => $this->firstname,
                 'lastname'=> $this->lastname,
                 'job' => $this->job,
-                'isFinal' => $this->isFinal
             ]
         );
     }
-
     /**
      * Get the attachments for the message.
      *

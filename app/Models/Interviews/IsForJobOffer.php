@@ -2,25 +2,23 @@
 
 namespace App\Models\Interviews;
 
+use Illuminate\Database\Eloquent\Model;
 use App\Models\JobPostingApplicant\Applicants;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class InitialInterviewCandidate extends Model
+class IsForJobOffer extends Model
 {
     use HasFactory;
-    protected $table = 'schedule_initial_interview';
+    protected $table = 'is_for_job_offer';
     protected $fillable = [
         'applicant_id',
-        'isForFinalInterview',
+        'isOnBoarding',
         'date',
         'time',
-        'via',
-        'link',
         'isDone'
     ];
 
-    public function applicantInitial()
+    public function applicantFinal()
     {
         return $this->belongsTo(Applicants::class, 'applicant_id');
     }

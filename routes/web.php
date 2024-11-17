@@ -4,11 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Company\CompanyController;
+use App\Http\Controllers\OnBoarding\PassedCandidates;
 use App\Http\Controllers\JobPortal\JobPortalController;
+use App\Http\Controllers\OnBoarding\JobOffersController;
 use App\Http\Controllers\JobPosting\JobPostingController;
 use App\Http\Controllers\ApplicantTracking\ApplicantsController;
-use App\Http\Controllers\ApplicantTracking\InitialInterviewsController;
 use App\Http\Controllers\JobPortal\JobPortalApplicationController;
+use App\Http\Controllers\ApplicantTracking\FinalInterviewsController;
+use App\Http\Controllers\ApplicantTracking\InitialInterviewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +83,22 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
     //Initial Inteviews
     Route::get('initial-interviews/all-interviews', [InitialInterviewsController::class, 'GetAllInitialInterviews']);
     Route::get('initial-interviews/todays-interview', [InitialInterviewsController::class,'GetTodaysInterview']);
+    Route::post('mark-as-done/{id}' ,[InitialInterviewsController::class, 'MarkAsDone']);
+    Route::get('initial-interviews/done-interviews', [InitialInterviewsController::class,'GetDoneInterviews']);
+    Route::post('final-schedule-interview/{id}', [InitialInterviewsController::class,'ScheduleFinalInterview']);
+    //Final Interviews
+    Route::get('final-interviews/all-interviews', [FinalInterviewsController::class,'GetAllFinalInterviews']);
+    Route::get('final-interviews/todays-final-interview', [FinalInterviewsController::class, 'GetAllTodaysFinalInterviews']);
+    Route::get('final-interviews/done-interviews', [FinalInterviewsController::class, 'GetDoneInterviews']);
+    Route::post('mark-as-done-final/{id}' ,[FinalInterviewsController::class, 'MarkAsDone']);
+    Route::post('mark-as-passed/{id}', [FinalInterviewsController::class, 'MarkAsPassed']);
+    Route::post('schedule-job-offer/{id}', [FinalInterviewsController::class, 'ScheduleJobOffer']);
+
+    //Passed Candidates
+    Route::get('applicants/passed-candidates', [PassedCandidates::class, 'GetAllPassedCandidates']);
+
+    //Job Offers
+    Route::get('job-offers/all-job-offers', [JobOffersController::class, 'GetAllJobOffers']);
 
     //APPS
     Route::get('apps-todolist', [HomeController::class, 'todolist']);

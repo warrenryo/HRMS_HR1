@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schedule_initial_interview', function (Blueprint $table) {
+        Schema::create('schedule_final_interview', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('applicant_id');
             $table->timestamp('date');
@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('via');
             $table->string('link')->nullable();
             $table->boolean('isDone')->default(false);
-            $table->boolean('isForFinalInterview')->default(false);
+            $table->boolean('isForJobOffer')->default(false);
+            $table->boolean('finalInterviewDone')->default(false);  
             $table->foreign('applicant_id')->references('id')->on('applicants')->onDelete('cascade');
             $table->timestamps();
         });
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('schedule_initial_interview');
+        Schema::dropIfExists('schedule_final_interview');
     }
 };
