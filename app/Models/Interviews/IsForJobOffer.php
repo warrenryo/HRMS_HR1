@@ -13,6 +13,8 @@ class IsForJobOffer extends Model
     protected $fillable = [
         'applicant_id',
         'isOnBoarding',
+        'isRejected',
+        'email_sent',
         'date',
         'time',
         'isDone'

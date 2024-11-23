@@ -353,14 +353,15 @@
                     <ul x-cloak x-show="activeDropdown === 'jOffers'" x-collapse class="sub-menu text-gray-500">
                         <li>
                             <a href="/job-offers/all-job-offers">All Job Offers</a>
-                            <a href="/final-interviews/todays-final-interview">Today's Job Offers</a>
+                            <a href="/job-offers/todays-job-offers">Today's Job Offers</a>
+                            <a href="/job-offers/rejected-offers">Rejected Offers</a>
                         </li>
                     </ul>
                 </li>
 
                 <ul>
                     <li class="nav-item">
-                        <a href="/applicants/candidates" class="group">
+                        <a href="/on-boarding/all-on-boarding" class="group">
                             <div class="flex items-center">
 
                                 <svg class="group-hover:!text-primary" width="20" height="20" viewBox="0 0 24 24"

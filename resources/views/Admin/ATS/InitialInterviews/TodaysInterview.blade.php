@@ -55,7 +55,7 @@
                                                     <button data-hs-overlay="#mark-as-done-{{$applicant->id}}" type="button" class="btn btn-success py-2 px-3">
                                                         <i class="fa-solid fa-check"></i>
                                                         <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700" role="tooltip">
-                                                            Schedule Initial Interview
+                                                            Mark as Done
                                                         </span>
                                                     </button>
                                                 </div>

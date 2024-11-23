@@ -1,11 +1,11 @@
 <x-app-layout>
-    @section('title', 'All Job Offers')
+    @section('title', 'All OnBoarding Candidates')
     <ul class="flex space-x-2 rtl:space-x-reverse pb-6">
         <li>
             <a href="{{ url('/dashboard')}}" class="text-primary hover:underline">Dashboard</a>
         </li>
         <li class="before:content-['/'] before:mr-1 rtl:before:ml-1">
-            <span>All Job Offers</span>
+            <span>All OnBoarding Candidates</span>
         </li>
     </ul>
 
@@ -25,7 +25,6 @@
                                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Job Applied</th>
                                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">City/State</th>
                                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Phone</th>
-                                        <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Job Offer Meeting Date</th>
                                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Status</th>
                                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Actions</th>
                                     </tr>
@@ -39,12 +38,11 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->applicantFinal->jobApplied->title}}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->applicantFinal->city_state}} </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->applicantFinal->phone}}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200"> {{ \Carbon\Carbon::parse($applicant->date)->format('F j, Y ') }} - {{\Carbon\Carbon::parse($applicant->time)->format('g:i a ') }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                                             @if($applicant->isDone == false)
                                             <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">Pending</span>
                                             @else
-                                            <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">Done Interview</span>
+                                            <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">OnBoarding</span>
                                             @endif
                                         </td>
                                         <td class="px-6 py-4 text-sm text-gray-800 dark:text-neutral-200">
@@ -56,7 +54,15 @@
                                                     </span>
                                                 </button>
                                             </div>
-                                           
+                                            <div class="hs-tooltip inline-block">
+                                                <button data-hs-overlay="#send-email-onboarding-{{$applicant->id}}" type="button" class="btn btn-success py-2 px-3">
+                                                <i class="fa-solid fa-envelope"></i>
+                                                    <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700" role="tooltip">
+                                                        Send an Email
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            @include('AdminComponents.Modals.OnBoarding.OnBoardingEmployee.SendEmailOnBoarding')
                                             @include('AdminComponents.Modals.OnBoarding.JobOffers.ViewJobOfferApplicantDetails')
                                         </td>
                                     </tr>

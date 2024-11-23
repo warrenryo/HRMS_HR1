@@ -18,6 +18,8 @@ return new class extends Migration
             $table->time('time');
             $table->boolean('isDone')->default(false);
             $table->boolean('isOnBoarding')->default(false);
+            $table->boolean('isRejected')->default(false);
+            $table->boolean('email_sent')->default(false);
             $table->foreign('applicant_id')->references('id')->on('applicants')->onDelete('cascade');
             $table->timestamps();
         });

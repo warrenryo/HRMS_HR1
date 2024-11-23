@@ -12,6 +12,7 @@ use App\Http\Controllers\ApplicantTracking\ApplicantsController;
 use App\Http\Controllers\JobPortal\JobPortalApplicationController;
 use App\Http\Controllers\ApplicantTracking\FinalInterviewsController;
 use App\Http\Controllers\ApplicantTracking\InitialInterviewsController;
+use App\Http\Controllers\OnBoarding\OnBoardingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +100,15 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
 
     //Job Offers
     Route::get('job-offers/all-job-offers', [JobOffersController::class, 'GetAllJobOffers']);
+    Route::get('job-offers/todays-job-offers', [JobOffersController::class, 'GetAllTodaysJobOffer']);
+    Route::get('job-offers/rejected-offers', [JobOffersController::class, 'GetAllRejectedOffers']);
+    Route::post('mark-as-done-job-offer/{id}', [JobOffersController::class, 'MarkAsDoneJobOffer']);
+    Route::post('mark-as-rejected-job-offer/{id}', [JobOffersController::class, 'MarkAsRejected']);
+
+    //On Boarding 
+    Route::get('on-boarding/all-on-boarding', [OnBoardingController::class, 'GetAllOnBoarding']);
+    Route::post('send-email-onboarding/{id}', [OnBoardingController::class, 'SendEmailOnBoarding']);
+    Route::get('onboarding-application-{id}', [OnBoardingController::class, 'OnBoardingForm']);
 
     //APPS
     Route::get('apps-todolist', [HomeController::class, 'todolist']);

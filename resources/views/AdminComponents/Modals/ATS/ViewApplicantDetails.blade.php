@@ -76,7 +76,7 @@
                         @endphp
                         @if($job->questions->count() > 0)
                         <div class="h-[60vh] my-10">
-                            <h1 class="text-gray-500 font-bold pb-2">Your resume</h1>
+                            <h1 class="text-gray-500 font-bold pb-2">Applicant Resume</h1>
                             <embed src="{{ asset('resumes/' . $applicant->resume_path) }}" width="100%" height="100%" frameborder="0"></e>
                         </div>
                         @else
@@ -94,7 +94,7 @@
                                     {{ $question->questions }}
                                 </label>
                                 @if($question->q_type != 'checkbox')
-                                <p class="text-sm text-gray-500">Your answer:</p>
+                                <p class="text-sm text-gray-500">Applicant answer:</p>
                                 @endif
                                 <!-- Find the specific answer for the current question -->
                                 @php

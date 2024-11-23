@@ -25,7 +25,6 @@
                                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Job Applied</th>
                                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">City/State</th>
                                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Phone</th>
-                                        <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Job Offer Meeting Date</th>
                                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Status</th>
                                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Actions</th>
                                     </tr>
@@ -39,7 +38,6 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->applicantFinal->jobApplied->title}}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->applicantFinal->city_state}} </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{$applicant->applicantFinal->phone}}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200"> {{ \Carbon\Carbon::parse($applicant->date)->format('F j, Y ') }} - {{\Carbon\Carbon::parse($applicant->time)->format('g:i a ') }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                                             @if($applicant->isDone == false)
                                             <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">Pending</span>
@@ -56,7 +54,24 @@
                                                     </span>
                                                 </button>
                                             </div>
-                                           
+                                            <!-- <div class="hs-tooltip inline-block">
+                                                <button data-hs-overlay="#mark-as-done-{{$applicant->id}}" type="button" class="btn btn-success py-2 px-3">
+                                                    <i class="fa-solid fa-check"></i>
+                                                    <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700" role="tooltip">
+                                                        Schedule Initial Interview
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="hs-tooltip inline-block">
+                                                <button data-hs-overlay="#mark-as-rejected-{{$applicant->id}}" type="button" class="btn btn-danger py-2 px-3">
+                                                    <i class="fa-solid fa-check"></i>
+                                                    <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700" role="tooltip">
+                                                        Mark as Rejected
+                                                    </span>
+                                                </button>
+                                            </div> -->
+                                            @include('AdminComponents.Modals.OnBoarding.JobOffers.MarkAsDoneJobOffer')
+                                            @include('AdminComponents.Modals.OnBoarding.JobOffers.MarkAsRejected')
                                             @include('AdminComponents.Modals.OnBoarding.JobOffers.ViewJobOfferApplicantDetails')
                                         </td>
                                     </tr>

@@ -108,7 +108,7 @@
                         <!-- Find the specific answer for the current question -->
                         @php
                         // Get the applicant's answer for the question
-                        $answer = $applicant->applicantAnswer->firstWhere('employer_question_id', $question->id);
+                        $answer = $applicant->jobApplicantCandidate->applicantAnswer->firstWhere('employer_question_id', $question->id);
 
                         // Manually retrieve all the checkbox answers for the current question
                         $checkboxAnswers = \App\Models\JobPostingApplicant\ApplicantAnswerCheckbox::where('checkbox_answers_id', $question->id)
