@@ -5,14 +5,17 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\OnBoarding\PassedCandidates;
+use App\Http\Controllers\Employees\NewHiredController;
 use App\Http\Controllers\JobPortal\JobPortalController;
 use App\Http\Controllers\OnBoarding\JobOffersController;
 use App\Http\Controllers\JobPosting\JobPostingController;
+use App\Http\Controllers\OnBoarding\OnBoardingController;
 use App\Http\Controllers\ApplicantTracking\ApplicantsController;
+use App\Http\Controllers\TrainingDevelopment\TrainingController;
 use App\Http\Controllers\JobPortal\JobPortalApplicationController;
 use App\Http\Controllers\ApplicantTracking\FinalInterviewsController;
 use App\Http\Controllers\ApplicantTracking\InitialInterviewsController;
-use App\Http\Controllers\OnBoarding\OnBoardingController;
+use App\Http\Controllers\Employees\ActiveEmployeesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -109,6 +112,22 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
     Route::get('on-boarding/all-on-boarding', [OnBoardingController::class, 'GetAllOnBoarding']);
     Route::post('send-email-onboarding/{id}', [OnBoardingController::class, 'SendEmailOnBoarding']);
     Route::get('onboarding-application-{id}', [OnBoardingController::class, 'OnBoardingForm']);
+    Route::get('get-onboarding-forms', [OnBoardingController::class, 'GetOnBoardingForms']);
+    Route::post('submit-onboarding-form/{id}', [OnBoardingController::class, 'SubmitOnBoardingForm']);
+    Route::get('success-page', [OnBoardingController::class, 'SuccessPage']);
+
+    //Employees
+    Route::get('employees/new-hired', [NewHiredController::class, 'GetAllNewHiredEmployeeDocuments']);
+    Route::post('schedule-training/{id}', [NewHiredController::class, 'ScheduleForTraining']);
+    Route::get('employees/active-employees', [ActiveEmployeesController::class, 'GetAllActiveEmployees']);
+    
+
+    //Training and Development
+    Route::get('/training/training-monitoring', [TrainingController::class, 'GetAllTraining']);
+    Route::post('evaluate-performance/{training_id}', [TrainingController::class, 'EvaluateEmployeeTraining']);
+    Route::get('training/on-progress', [TrainingController::class, 'GetAllOnProgressTraining']);
+    Route::get('training/done-training', [TrainingController::class, 'GetAllDoneTraining']);
+    Route::post('move-active-employee/{emp_id}', [TrainingController::class, 'MoveToActiveEmployee']);
 
     //APPS
     Route::get('apps-todolist', [HomeController::class, 'todolist']);

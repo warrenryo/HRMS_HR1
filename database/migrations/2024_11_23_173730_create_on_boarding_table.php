@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('applicant_id');
             $table->boolean('status')->default(false);
             $table->boolean('forApproval')->default(false);
+            $table->foreign('applicant_id')->references('id')->on('applicants')->onDelete('cascade');
             $table->timestamps();
         });
     }

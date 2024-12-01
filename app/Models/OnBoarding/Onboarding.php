@@ -18,6 +18,6 @@ class Onboarding extends Model
 
     public function onBoarding()
     {
-        $this->belongsTo(Applicants::class, 'applicant_id');
+        return $this->belongsTo(Applicants::class, 'applicant_id');
     }
 }

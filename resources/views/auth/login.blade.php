@@ -2,15 +2,23 @@
     <!-- Session Status -->
     @section('title', 'Login')
     <x-auth-session-status class="mb-4" :status="session('status')" />
-    <div class="flex min-h-screen">
-        <div
-            class="bg-gradient-to-t from-[#ff1361bf] to-[#44107A] w-1/2  min-h-screen hidden lg:flex flex-col items-center justify-center text-white dark:text-black p-4">
-            <div class="w-full mx-auto mb-5"><img src="/assets/images/auth-cover.svg" alt="coming_soon"
-                    class="lg:max-w-[370px] xl:max-w-[500px] mx-auto" /></div>
-            <h3 class="text-3xl font-bold mb-4 text-center">Join the community of expert developers</h3>
-            <p>It is easy to setup with great customer experience. Start your 7-day free trial</p>
+    <div class="flex min-h-screen ">
+        <div class="w-1/2 min-h-screen hidden lg:flex flex-col items-center justify-center text-white dark:text-black p-4 relative">
+            <!-- Background Image Div -->
+            <div class="absolute inset-0 bg-cover bg-center"
+                style="background-image: url('assets/images/hotel.jpg'); filter: brightness(0.4) blur(1px); z-index: -1;">
+            </div>
+
+            <!-- Content (Text and Image) -->
+            <div class="relative z-10 w-full mx-auto mb-5">
+                <img src="/assets/images/icon.png" alt="coming_soon" class="lg:max-w-[370px] xl:max-w-[300px] mx-auto" />
+            </div>
+            <h3 class="text-3xl font-bold mb-4 text-center text-white">Welcome to ParadiseHotel</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+                We're thrilled to have you at ParadiseHotel. Enjoy your stay and explore our world-class amenities.
+            </p>
         </div>
-        <div class="w-full lg:w-1/2 relative flex justify-center items-center">
+        <div class="w-full lg:w-1/2 relative flex justify-center items-center ">
             @auth
             <a href="{{ url('/dashboard') }}"
                 class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
@@ -58,7 +66,7 @@
 
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-full">SIGN IN</button>
+                    <button type="submit" class="btn btn-primary w-full bg-hotel_green-light border border-hotel_green-light">SIGN IN</button>
                 </form>
                 <div
                     class="relative my-7 h-5 text-center before:w-full before:h-[1px] before:absolute before:inset-0 before:m-auto before:bg-[#ebedf2]  dark:before:bg-[#253b5c]">

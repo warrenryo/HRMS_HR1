@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
-          <!--FONTAWESOME-->
+    <!--FONTAWESOME-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
     <script src="/assets/js/perfect-scrollbar.min.js"></script>
@@ -104,10 +104,11 @@
             <div class="p-6 animate__animated" :class="[$store.app.animation]">
                 {{ $slot }}
 
-  
+
             </div>
         </div>
     </div>
+
     <script src="/assets/js/alpine-collaspe.min.js"></script>
     <script src="/assets/js/alpine-persist.min.js"></script>
     <script defer src="/assets/js/alpine-ui.min.js"></script>

@@ -59,7 +59,7 @@
             </button>
         </template>
     </div>
-    <div class="main-container  text-black dark:text-white-dark min-h-screen">
+    <div class="main-container  text-black dark:text-white-dark  min-h-screen">
         {{ $slot }}
     </div>
     <script>

@@ -77,7 +77,8 @@
 
 
 
-
+  @include('sweetalert::alert')
+  
   <script>
     // Function to apply the saved theme from localStorage
     function applySavedTheme() {

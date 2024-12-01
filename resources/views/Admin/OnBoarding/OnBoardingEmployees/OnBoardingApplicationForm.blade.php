@@ -4,7 +4,7 @@
 <div class="max-w-7xl  mx-auto">
     <!-- Card Section -->
     <div class=" px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
-        <form action="{{ url('submit-onboarding-form/'.$id) }}" method="POST">
+        <form action="{{ url('submit-onboarding-form/'.$id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <!-- Card -->
             <div class="bg-white rounded-xl shadow dark:bg-neutral-900">
@@ -23,11 +23,11 @@
                             <div class="flex flex-col sm:flex-row sm:items-center sm:gap-x-5">
                                 <!-- Display default image or uploaded image -->
                                 <img id="avatarImage" class="-mt-8 relative z-10 inline-block size-24 mx-auto sm:mx-0 rounded-full ring-4 ring-white dark:ring-neutral-900"
-                                    src="{{ isset($user->profile_photo) ? asset('storage/' . $user->profile_photo) : 'https://preline.co/assets/img/160x160/img1.jpg' }}" alt="Avatar">
+                                    src="https://preline.co/assets/img/160x160/img1.jpg" alt="Avatar">
 
                                 <div class="sm:col-span-9">
                                     <label for="af-submit-application-resume-cv" class="sr-only">Choose file</label>
-                                    <input type="file" accept="image/*" required name="af-submit-application-resume-cv" id="photo" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400
+                                    <input type="file" accept="image/*" required name="profile_picture" id="photo" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400
         file:bg-gray-50 file:border-0
         file:bg-gray-100 file:me-4
         file:py-2 file:px-4
