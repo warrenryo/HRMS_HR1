@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\JobPosting\JobPosting;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\AIModels\AIPredictionResponse;
+use App\Models\Interviews\EvaluateInitialInterview;
 use App\Models\Interviews\FinalInterviewCandidate;
 use App\Models\Interviews\InitialInterviewCandidate;
 
@@ -34,12 +35,20 @@ class InitialInterviewsController extends Controller
         return view('Admin.ATS.InitialInterviews.TodaysInterview', compact('applicants'));
     }
 
-    public function MarkAsDone($id)
+    public function MarkAsDone($id, Request $request)
     {
         $interviewCandidate = InitialInterviewCandidate::find($id);
 
         if($interviewCandidate)
         {
+            foreach ($request->criteria as $index => $criteria) {
+                EvaluateInitialInterview::create([
+                    'applicanit_d' => $id,
+                    'criteria' => $criteria,
+                    'ratings' => $request->ratings[$index],
+                    'comments' => $request->comments[$index],
+                ]);
+            }
             $interviewCandidate->update([
                 'isDone' => true
             ]);
@@ -51,11 +60,24 @@ class InitialInterviewsController extends Controller
 
     public function GetDoneInterviews()
     {
-        $applicants = InitialInterviewCandidate::with('applicantInitial')
+        $all_applicant = InitialInterviewCandidate::with('applicantInitial')
         ->where('isForFinalInterview', false)
         ->where('isDone', true)
         ->orderBy('id', 'DESC') // Optional: you can still order by ID if needed
         ->get();
+        $applicants = $all_applicant->map(function ($applicant) {
+            // Calculate the sum of ratings for each applicant
+            $sum_ratings = EvaluateInitialInterview::where('applicanit_d', $applicant->applicant_id)
+                ->sum('ratings');
+    
+            // Check if the applicant passed
+            $is_passed = $sum_ratings > 25;
+    
+            // Add the pass status to the applicant
+            $applicant->is_passed = $is_passed;
+    
+            return $applicant;
+        });
         return view('Admin.ATS.InitialInterviews.DoneInitialInterview', compact('applicants'));
     }
 

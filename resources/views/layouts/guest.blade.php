@@ -5,7 +5,7 @@
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>@yield('title')</title>
-    <link rel="icon" href="{{ asset('assets/images/ANAA LOGO.png')}}" type="image/png">
+    <link rel="icon" href="{{ asset('assets/images/icon.png')}}" type="image/png">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">

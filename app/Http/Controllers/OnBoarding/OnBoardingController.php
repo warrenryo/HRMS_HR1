@@ -94,12 +94,11 @@ class OnBoardingController extends Controller
             $fileName = null;
             if ($request->hasFile('profile_picture')) {
                 $file = $request->file('profile_picture');
-                $path = public_path('profile'); 
                 // Generate a unique filename
                 $fileName = time() . '.' . $file->getClientOriginalExtension();
                 
-                // Store the file in public/profiles
-                $file->move($path, $fileName);
+                // Store the file in the 'public/profile' directory
+                $file->storeAs('public/profile', $fileName);
             }
 
 

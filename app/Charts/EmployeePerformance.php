@@ -13,22 +13,26 @@ class EmployeePerformance
         $this->chart = $chart;
     }
 
-    public function build($evaluated_performance): \ArielMejiaDev\LarapexCharts\BarChart
+    public function build($data): \ArielMejiaDev\LarapexCharts\BarChart
     {
+         // Extract values from the array
+            $evaluated_performance = $data['evaluated_performance'];
+            $title = $data['title'];
+            $subtitle = $data['subtitle'];
+            $colors = $data['colors'];
+            $criteria = [];
+            $ratings = [];
 
-        $criteria = [];
-        $ratings = [];
-
-        foreach ($evaluated_performance as $evaluation) {
-            $criteria[] = $evaluation->criteria;  // Get the criteria (e.g., "Job Knowledge")
-            $ratings[] = $evaluation->ratings;    // Get the ratings (e.g., 4, 5, etc.)
-        }
+            foreach ($evaluated_performance as $evaluation) {
+                $criteria[] = $evaluation->criteria;  // Get the criteria (e.g., "Job Knowledge")
+                $ratings[] = $evaluation->ratings;    // Get the ratings (e.g., 4, 5, etc.)
+            }
 
         return $this->chart->barChart()
-        ->setTitle('Employee Performance Evaluation')
-            ->setSubtitle('Ratings for Each Criterion')
+            ->setTitle($title)
+            ->setSubtitle($subtitle)
             ->addData('Ratings', $ratings)  // Set ratings as the chart data
-            ->setColors(['#ffc63b', '#ff6384'])
+            ->setColors($colors)
             ->setXAxis($criteria);  
     }
 }

@@ -6,7 +6,7 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>@yield('title')</title>
-  <link rel="icon" href="{{ asset('assets/images/ANAA LOGO.png')}}" type="image/png">
+  <link rel="icon" href="{{ asset('assets/images/icon.png')}}" type="image/png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

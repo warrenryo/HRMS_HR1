@@ -11,6 +11,7 @@ use App\Models\JobPosting\JobPosting;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Interviews\FinalInterviewCandidate;
 use App\Models\Interviews\IsForJobOffer;
+use App\Models\Interviews\EvaluateFinalIntervieww;
 
 class FinalInterviewsController extends Controller
 {
@@ -36,21 +37,42 @@ class FinalInterviewsController extends Controller
     
     public function GetDoneInterviews()
     {
-        $applicants = FinalInterviewCandidate::with('applicantInitial')
+        $all_applicants = FinalInterviewCandidate::with('applicantInitial')
         ->where('isForJobOffer', false)
         ->where('finalInterviewDone', false)
         ->where('isDone', true)
         ->orderBy('id', 'DESC') // Optional: you can still order by ID if needed
         ->get();
+        $applicants = $all_applicants->map(function ($applicant) {
+            // Calculate the sum of ratings for each applicant
+            $sum_ratings = EvaluateFinalIntervieww::where('applicant_id', $applicant->applicant_id)
+                ->sum('ratings');
+    
+            // Check if the applicant passed
+            $is_passed = $sum_ratings > 25;
+    
+            // Add the pass status to the applicant
+            $applicant->is_passed = $is_passed;
+    
+            return $applicant;
+        });
         return view('Admin.ATS.FinalInterviews.DoneFinalInterview', compact('applicants'));
     }
 
-    public function MarkAsDone($id)
+    public function MarkAsDone($id, Request $request)
     {
         $interviewCandidate = FinalInterviewCandidate::find($id);
 
         if($interviewCandidate)
         {
+            foreach ($request->criteria as $index => $criteria) {
+                EvaluateFinalIntervieww::create([
+                    'applicant_id' => $id,
+                    'criteria' => $criteria,
+                    'ratings' => $request->ratings[$index],
+                    'comments' => $request->comments[$index],
+                ]);
+            }
             $interviewCandidate->update([
                 'isDone' => true
             ]);

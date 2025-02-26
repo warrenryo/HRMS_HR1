@@ -48,6 +48,14 @@
                                                 </button>
                                             </div>
                                             <div class="hs-tooltip inline-block">
+                                                    <button data-hs-overlay="#view-evaluate-performance-{{$applicant->id}}" type="button" class="btn btn-secondary py-2 px-3">
+                                                        <i class="fa-solid fa-chart-line"></i>
+                                                        <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700" role="tooltip">
+                                                            View Employee Evaluated Performance
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            <div class="hs-tooltip inline-block">
                                                 <button data-hs-overlay="#jobOffer-schedule-{{$applicant->id}}" type="button" class="btn btn-secondary py-2 px-3">
                                                     <i class="fa-regular fa-calendar"></i>
                                                     <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700" role="tooltip">
@@ -58,6 +66,7 @@
 
                                             @include('AdminComponents.Modals.OnBoarding.PassedCandidates.ViewCandidateDetails')
                                             @include('AdminComponents.Modals.OnBoarding.PassedCandidates.ScheduleJobOffer')
+                                            @include('AdminComponents.Modals.OnBoarding.PassedCandidates.ViewEvaluatedPerformance')
                                         </td>
                                     </tr>
                                     @endforeach

@@ -54,6 +54,7 @@
                                                     </span>
                                                 </button>
                                             </div>
+                                  
                                             <div class="hs-tooltip inline-block">
                                                 <button data-hs-overlay="#interview-schedule-{{$applicant->id}}" type="button" class="btn btn-secondary py-2 px-3">
                                                     <i class="fa-regular fa-calendar"></i>

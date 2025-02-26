@@ -52,7 +52,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="hs-tooltip inline-block">
-                                                    <button data-hs-overlay="#mark-as-done-{{$applicant->id}}" type="button" class="btn btn-success py-2 px-3">
+                                                    <button data-hs-overlay="#evaluate-{{$applicant->id}}" type="button" class="btn btn-success py-2 px-3">
                                                         <i class="fa-solid fa-check"></i>
                                                         <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700" role="tooltip">
                                                             Mark as Done
@@ -60,7 +60,7 @@
                                                     </button>
                                                 </div>
                                             @include('AdminComponents.Modals.ATS.InitialInterview.ViewInitialApplicantDetails')
-                                            @include('AdminComponents.Modals.ATS.InitialInterview.MarkAsDone')
+                                            @include('AdminComponents.Modals.ATS.InitialInterview.EvaluateInitialInterview')
                                         </td>
                                     </tr>
                                     @endforeach
